@@ -5,53 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aavishkar by Samay</title>
   <style>
+    /* General Dark Theme */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #0d0d0d;
-      color: #fff;
-      text-align: center;
+      background-color: #0e0e0e;
+      color: #f5f5f5;
       overflow-x: hidden;
     }
 
-    h1, h2 {
+    header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(90deg, #000, #111);
       color: #d4af37;
-    }
-
-    .hero {
-      padding: 80px 20px 40px;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: #ccc;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(212,175,55,0.3);
     }
 
     /* Slideshow */
     .slideshow-container {
       position: relative;
       width: 100%;
-      max-width: 1100px;
-      height: 650px; /* larger height for bigger view */
-      margin: 40px auto;
+      height: 90vh; /* taller area */
+      margin: 0 auto;
       overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(212,175,55,0.3);
+      border-radius: 0;
+      background-color: #000;
     }
 
     .slides {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover; /* fill container */
+      object-position: center;
       opacity: 0;
-      transition: opacity 1.5s ease-in-out, transform 6s ease-in-out;
-      object-fit: cover;
       transform: scale(1.1);
+      transition: opacity 1.5s ease-in-out, transform 6s ease-in-out;
     }
 
     .slides.active {
@@ -60,47 +55,28 @@
       z-index: 1;
     }
 
-    /* Text Sections */
-    .about, .contact {
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: auto;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease-out;
-    }
-
-    .about.visible, .contact.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    iframe {
-      width: 100%;
-      height: 350px;
-      border: 0;
-      border-radius: 10px;
-    }
-
+    /* Footer */
     footer {
-      background: #000;
-      color: #d4af37;
-      padding: 15px 0;
-      margin-top: 40px;
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #aaa;
+      font-size: 0.9rem;
     }
 
-    a {
+    footer a {
       color: #d4af37;
       text-decoration: none;
-      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Aavishkar by Samay</h1>
-    <p>3 BHK Luxurious Flats & Shops – Vaishnodevi, Ahmedabad</p>
-  </div>
+
+  <header>Aavishkar By Samay</header>
 
   <!-- Slideshow -->
   <div class="slideshow-container">
@@ -112,51 +88,31 @@
     <img class="slides" src="6.webp" alt="Aavishkar">
   </div>
 
-  <!-- About -->
+  <footer>
+
+   <!-- About -->
   <section class="about">
     <h2>About the Project</h2>
-    <p>Discover elegant 3 BHK flats and well-planned shops located in Ahmedabad’s booming Vaishnodevi area. Aavishkar by Samay offers luxurious spaces designed for comfort, style, and modern living.</p>
+    <p>Discover elegant 3 BHK flats and well-planned shops located in Ahmedabad’s booming Vaishnodevi area. 
+      Aavishkar by Samay offers luxurious spaces designed for comfort, style, and modern living.</p>
   </section>
-
-  <!-- Location -->
-  <section class="about">
-    <h2>Location</h2>
-    <iframe src="https://www.google.com/maps?q=23.0990179,72.5471719&z=15&output=embed"></iframe>
-  </section>
-
-  <!-- Contact -->
-  <section class="contact">
-    <h2>Contact for Booking</h2>
-    <p>📞 Call or WhatsApp: <a href="https://wa.me/918980110102" target="_blank">+91 8980110102</a></p>
-  </section>
-
-  <footer>
-    © 2025 Aavishkar by Samay. All Rights Reserved.
+    
+    <p>📞 Phone / WhatsApp: +91 8980110102</p>
+    <p>📍 <a href="https://maps.app.goo.gl/arREmDpM1wNv8muL8" target="_blank">AavishkarBySamay</a></p>
   </footer>
 
   <script>
-    // --- Slideshow ---
-    const slides = document.querySelectorAll(".slides");
-    let currentSlide = 0;
+    let index = 0;
+    const slides = document.querySelectorAll('.slides');
 
     function showNextSlide() {
-      slides[currentSlide].classList.remove("active");
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add("active");
+      slides[index].classList.remove('active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('active');
     }
 
-    setInterval(showNextSlide, 4000);
-
-    // --- Scroll animations ---
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.about, .contact').forEach(el => observer.observe(el));
+    setInterval(showNextSlide, 5000); // change every 5 seconds
   </script>
+
 </body>
 </html>
