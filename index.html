@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aavishkar by Samay</title>
   <style>
     body {
@@ -11,13 +11,13 @@
       background-color: #0d0d0d;
       color: #fff;
       text-align: center;
+      overflow-x: hidden;
     }
 
     h1, h2 {
       color: #d4af37;
     }
 
-    /* HERO SECTION */
     .hero {
       padding: 80px 20px 40px;
     }
@@ -29,31 +29,50 @@
 
     .hero p {
       font-size: 1.2rem;
-      color: #ddd;
+      color: #ccc;
     }
 
-    /* SLIDESHOW */
+    /* Slideshow */
     .slideshow-container {
       position: relative;
-      max-width: 1000px;
-      margin: 30px auto;
-      border-radius: 10px;
+      width: 100%;
+      max-width: 1100px;
+      height: 650px; /* larger height for bigger view */
+      margin: 40px auto;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(212,175,55,0.3);
     }
 
     .slides {
-      display: none;
+      position: absolute;
       width: 100%;
-      height: 550px;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out, transform 6s ease-in-out;
       object-fit: cover;
+      transform: scale(1.1);
     }
 
-    /* ABOUT */
+    .slides.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    /* Text Sections */
     .about, .contact {
       padding: 40px 20px;
       max-width: 800px;
       margin: auto;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-out;
+    }
+
+    .about.visible, .contact.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     iframe {
@@ -78,7 +97,6 @@
   </style>
 </head>
 <body>
-
   <div class="hero">
     <h1>Aavishkar by Samay</h1>
     <p>3 BHK Luxurious Flats & Shops – Vaishnodevi, Ahmedabad</p>
@@ -86,10 +104,12 @@
 
   <!-- Slideshow -->
   <div class="slideshow-container">
-    <img class="slides" src="1.webp" alt="Aavishkar">
+    <img class="slides active" src="1.webp" alt="Aavishkar">
     <img class="slides" src="2.webp" alt="Aavishkar">
     <img class="slides" src="3.webp" alt="Aavishkar">
     <img class="slides" src="4.webp" alt="Aavishkar">
+    <img class="slides" src="5.webp" alt="Aavishkar">
+    <img class="slides" src="6.webp" alt="Aavishkar">
   </div>
 
   <!-- About -->
@@ -115,18 +135,28 @@
   </footer>
 
   <script>
-    let slideIndex = 0;
-    const slides = document.getElementsByClassName("slides");
-    function showSlides() {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) {slideIndex = 1}
-      slides[slideIndex-1].style.display = "block";
-      setTimeout(showSlides, 3000); // Change image every 3 seconds
+    // --- Slideshow ---
+    const slides = document.querySelectorAll(".slides");
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
     }
-    showSlides();
+
+    setInterval(showNextSlide, 4000);
+
+    // --- Scroll animations ---
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.about, .contact').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
