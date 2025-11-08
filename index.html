@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aavishkar by Samay</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d0d0d;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #d4af37;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 80px 20px 40px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ddd;
+    }
+
+    /* SLIDESHOW */
+    .slideshow-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 30px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+    }
+
+    .slides {
+      display: none;
+      width: 100%;
+      height: 550px;
+      object-fit: cover;
+    }
+
+    /* ABOUT */
+    .about, .contact {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: 350px;
+      border: 0;
+      border-radius: 10px;
+    }
+
+    footer {
+      background: #000;
+      color: #d4af37;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+
+    a {
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Aavishkar by Samay</h1>
+    <p>3 BHK Luxurious Flats & Shops – Vaishnodevi, Ahmedabad</p>
+  </div>
+
+  <!-- Slideshow -->
+  <div class="slideshow-container">
+    <img class="slides" src="img1.jpg" alt="Aavishkar">
+    <img class="slides" src="img2.jpg" alt="Aavishkar">
+    <img class="slides" src="img3.jpg" alt="Aavishkar">
+    <img class="slides" src="img4.jpg" alt="Aavishkar">
+  </div>
+
+  <!-- About -->
+  <section class="about">
+    <h2>About the Project</h2>
+    <p>Discover elegant 3 BHK flats and well-planned shops located in Ahmedabad’s booming Vaishnodevi area. Aavishkar by Samay offers luxurious spaces designed for comfort, style, and modern living.</p>
+  </section>
+
+  <!-- Location -->
+  <section class="about">
+    <h2>Location</h2>
+    <iframe src="https://www.google.com/maps?q=23.0990179,72.5471719&z=15&output=embed"></iframe>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact">
+    <h2>Contact for Booking</h2>
+    <p>📞 Call or WhatsApp: <a href="https://wa.me/918980110102" target="_blank">+91 8980110102</a></p>
+  </section>
+
+  <footer>
+    © 2025 Aavishkar by Samay. All Rights Reserved.
+  </footer>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName("slides");
+    function showSlides() {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}
+      slides[slideIndex-1].style.display = "block";
+      setTimeout(showSlides, 3000); // Change image every 3 seconds
+    }
+    showSlides();
+  </script>
+</body>
+</html>
