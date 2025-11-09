@@ -41,24 +41,35 @@
       z-index: 1;
     }
 
-    /* Logo Overlay */
-    .logo-overlay {
+    /* Overlay Header */
+    .header-overlay {
       position: absolute;
-      top: 25px;
-      left: 25px;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 50%;
-      padding: 10px;
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(212,175,55,0.6);
       animation: fadeIn 1.5s ease-in-out;
     }
 
-    .logo-overlay img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      object-fit: cover;
+    .header-overlay h1 {
+      color: #d4af37;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .header-overlay h1 {
+        font-size: 1.3rem;
+        padding: 5px 10px;
+      }
     }
 
     @keyframes fadeIn {
@@ -66,7 +77,53 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* About + Footer */
+    /* Navigation buttons */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #d4af37;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+      z-index: 20;
+      transition: background 0.3s;
+    }
+
+    .nav-btn:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .prev { left: 15px; }
+    .next { right: 15px; }
+
+    /* Dots */
+    .dots {
+      text-align: center;
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      z-index: 20;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.4s;
+    }
+
+    .dot.active {
+      background-color: #d4af37;
+    }
+
+    /* Footer / About */
     footer {
       text-align: center;
       padding: 30px 20px;
@@ -101,16 +158,19 @@
 
   <!-- Slideshow -->
   <div class="slideshow-container">
+    <div class="header-overlay">
+      <h1>AAVISHKAR BY SAMAY</h1>
+    </div>
 
     <img class="slides active" src="0.webp" alt="Aavishkar">
-    <img class="slides" src="1.webp" alt="Aavishkar">
-    <img class="slides" src="2.webp" alt="Aavishkar">
-    <img class="slides" src="3.webp" alt="Aavishkar">
-    <img class="slides" src="4.webp" alt="Aavishkar">
-    <img class="slides" src="5.webp" alt="Aavishkar">
-    <img class="slides" src="6.webp" alt="Aavishkar">
-    <img class="slides" src="7.webp" alt="Aavishkar">
+    <img class="slides" src="91.jpg" alt="Aavishkar">
+    <img class="slides" src="92.jpg" alt="Aavishkar">
     <img class="slides" src="16.webp" alt="Aavishkar">
+
+    <button class="nav-btn prev">&#10094;</button>
+    <button class="nav-btn next">&#10095;</button>
+
+    <div class="dots"></div>
   </div>
 
   <footer>
@@ -127,17 +187,56 @@
   </footer>
 
   <script>
-    let index = 0;
     const slides = document.querySelectorAll('.slides');
+    const dotsContainer = document.querySelector('.dots');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
 
-    function showNextSlide() {
+    let index = 0;
+    let autoSlide;
+
+    // Create dots dynamically
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => showSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(i) {
       slides[index].classList.remove('active');
-      index = (index + 1) % slides.length;
+      dots[index].classList.remove('active');
+      index = (i + slides.length) % slides.length;
       slides[index].classList.add('active');
+      dots[index].classList.add('active');
     }
 
-    setInterval(showNextSlide, 4000); // every 5 seconds
-  </script>
+    function showNext() { showSlide(index + 1); }
+    function showPrev() { showSlide(index - 1); }
 
+    nextBtn.addEventListener('click', () => {
+      showNext();
+      resetAutoSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      showPrev();
+      resetAutoSlide();
+    });
+
+    function autoPlay() {
+      autoSlide = setInterval(showNext, 4000);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlide);
+      autoPlay();
+    }
+
+    autoPlay();
+  </script>
 </body>
 </html>
